@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>FooDo</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="main">
+      <nav class="navbar">
+        <div class="nav-container">
+          <a href="#" class="nav-logo"><img src="{{ url_for('static', filename='images/Logo2.ico') }}"
+              alt="logo"
+              class="logo"
+          /></a>
+          <div class="nav-toggle">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </div>
+          <div class="nav-menu">
+            <ul class="nav-list">
+              <li class="nav-item">
+                <a
+                  href="{{ url_for('.homey', _anchor='exactlocation') }}"
+                  class="nav-link"
+                  >HOME</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  href="{{ url_for('.mission', _anchor='exactlocation') }}"
+                  class="nav-link"
+                  >MISSION</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  href="{{ url_for('.aboutus', _anchor='exactlocation') }}"
+                  class="nav-link"
+                  >ABOUT</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  href="{{ url_for('.contact', _anchor='exactlocation') }}"
+                  class="nav-link"
+                  >CONTACT</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container">
+        <div class="info">
+          <h1>
+            GIVE FOOD & <br />
+            FILL HAPPINESS
+          </h1>
+          <p>
+            Lets join our hands together to donate food by helping the need
+            instead of throwing in trash. Service to human is service to god.
+          </p>
+          <p>
+            There's Enough on this planet for Everyone's Needs but not for
+            Everyone's Greed -<i>MAHATMA GANDHI</i>
+          </p>
+        </div>
+        <div class="loader-container">
+          <div class="loader"></div>
+        </div>
+        <div class="content">
+          <!-- Content goes here -->
+        </div>
+        <div class="form">
+          <h2>Login into FooDo</h2>
+          {% if msgger > 0 %}
+          <div class="label-box">
+            <span class="label-text">{{msg}}</span>
+          </div>
+          {%else%}
+          <div></div>
+          {% endif %}
+
+          <span id="error-message" class="error-message"
+            >Enter Valid Credentials</span
+          >
+          <form
+            action="/login"
+            method="POST"
+            enctype="multipart/form-data"
+            id="form-date"
+          >
+            <input type="email" name="email" placeholder="EMAIL" id="email" />
+            <input
+              type="password"
+              name="password"
+              placeholder="PASSWORD"
+              id="password"
+            />
+            <button class="btn" id="login" type="button">Login</button>
+          </form>
+          <p class="link">
+            Don't have an account?<a
+              href="{{ url_for('.Signup', _anchor='exactlocation') }}"
+              >Sign up here</a
+            >
+            <br />
+          </p>
+        </div>
+        <section aria-label="Newest Photos" class="slide-photos">
+          <h1>SERVICES</h1>
+          <div class="carousel" data-carousel>
+            <button class="carousel-button prev" data-carousel-button="prev">
+              &#62;
+            </button>
+            <button class="carousel-button next" data-carousel-button="next">
+              &#60;
+            </button>
+            <ul data-slides>
+              <div class="card" data-active>
+                <img
+                  src="{{ url_for('static', filename='images/CR.jpg')}}"
+                  alt="Nature Image #1"
+                  height="100px"
+                />
+                <h3>Create Requests</h3>
+                <p>Create a request for donation and let donors contact</p>
+              </div>
+
+              <div class="card">
+                <img
+                  src="{{ url_for('static', filename='images/md.jpg')}}"
+                  alt="Nature Image #1"
+                />
+                <h3>Make Donations</h3>
+                <p>Make an open donation and let someone accept it</p>
+              </div>
+
+              <div class="card">
+                <img
+                  src="{{ url_for('static', filename='images/VR.jpg')}}"
+                  alt="Nature Image #1"
+                />
+                <h3>View Requests</h3>
+                <p>View all the available Requests and respond</p>
+              </div>
+
+              <div class="card">
+                <img
+                  src="{{ url_for('static', filename='images/VD.jpg')}}"
+                  alt="Nature Image #1"
+                />
+                <h3>View Donations</h3>
+                <p>View all the donations and accept</p>
+              </div>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+  <footer>
+    <p>&copy; Foodo - Designed in the interest of public 2023</p>
+  </footer>
+</html>
+
+<script
+  type="text/javascript"
+  src="https://code.jquery.com/jquery-1.7.1.min.js"
+></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    debugger;
+    $(".loader-container").hide();
+    const buttons = document.querySelectorAll("[data-carousel-button]");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const offset = button.dataset.carouselButton === "next" ? 1 : -1;
+        const slides = button
+          .closest("[data-carousel]")
+          .querySelector("[data-slides]");
+
+        const activeSlide = slides.querySelector("[data-active]");
+        let newIndex = [...slides.children].indexOf(activeSlide) + offset;
+        if (newIndex < 0) newIndex = slides.children.length - 1;
+        if (newIndex >= slides.children.length) newIndex = 0;
+
+        slides.children[newIndex].dataset.active = true;
+        delete activeSlide.dataset.active;
+      });
+    });
+    $("#error-message").hide();
+    debugger;
+    $("#email").blur(function () {
+      var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      var email = $(this).val();
+      if (!emailRegex.test(email)) {
+        alert("Invalid email format");
+        return false;
+      }
+    });
+    $("#password").blur(function () {
+      var password = $("#password").val();
+      var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s:])([^\s]){8,}$/;
+      if (!regex.test(password)) {
+        alert(
+          "Password must be at least 8 characters long and contain at least    one lowercase letter, one uppercase letter, one numeric digit, and one special character."
+        );
+        return false;
+      }
+    });
+
+    $("#login").click(function () {
+      // Adjust time as needed
+
+      if (!tester()) return false;
+      if ($("#email").val() == "" || $("#password").val() == "") {
+        $("#error-message").show();
+        return false;
+      } else {
+        $(".loader-container").fadeIn();
+        debugger;
+        var username = $("#email").val();
+        var password = $("#password").val();
+        $.ajax({
+          url: "/Logintest",
+          type: "POST",
+          data: JSON.stringify({ uname: username, pwd: password }),
+          contentType: "application/json",
+          dataType: "json",
+          success: function (response) {
+            debugger;
+            console.log("Success:", response);
+            if (response == "pass") {
+              $("#error-message").show();
+            } else {
+              $("#form-date").submit();
+              return true;
+            }
+          },
+          error: function (error) {
+            console.log("Error:", error);
+          },
+        });
+
+        setTimeout(function () {
+          $(".loader-container").fadeOut();
+          $(".content").fadeIn();
+        }, 1000);
+      }
+    });
+
+    function tester() {
+      var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      var email = $("#email").val();
+      if (!emailRegex.test(email)) {
+        alert("Invalid email format");
+        return false;
+      }
+      return true;
+    }
+  });
+</script>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>FooDo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="main">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" class="nav-logo"><img src="{{ url_for('static', filename='images/Logo2.ico') }}" alt="logo" class="logo"></a>
+                <div class="nav-toggle">
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                </div>
+                <div class="nav-menu">
+                  <ul class="nav-list">
+                    <li class="nav-item">
+                      <a
+                        href="{{ url_for('.homey', _anchor='exactlocation') }}"
+                        class="nav-link"
+                        >HOME</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        href="{{ url_for('.mission', _anchor='exactlocation') }}"
+                        class="nav-link"
+                        >MISSION</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        href="{{ url_for('.aboutus', _anchor='exactlocation') }}"
+                        class="nav-link"
+                        >ABOUT</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        href="{{ url_for('.contact', _anchor='exactlocation') }}"
+                        class="nav-link"
+                        >CONTACT</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="info1">
+                
+                <h1><br><br><br>Intersted to Join us?</h1>
+                <p>If you want to be a part of our community and wants to actively participate in the managing
+                    services. Please reach out to us.</p>
+                </br>
+                <p>Contact: +1 222-222-2222</p>
+                <br>
+                <p>Email: foodo@gmail.com</p>
+            </div>
+
+        </div>
+
+
+        <div class="contact-container">
+            <div class="contactform" id="signform">
+              <h2 class="contactform-heading">Contact Us</h2>
+              <div class="contactform-group">
+                <br><label for="name">Name:</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="contactform-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required />
+              </div>
+              <div class="contactform-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required />
+              </div>
+              <div class="contactform-group">
+                <label for="Please leave us your message here">Message</label>
+                <textarea type="message" id="message" name="message" required></textarea>
+              </div>
+              <div class="signform-btn">
+                <span>
+                  <p id="errorMsg" style="display: none; color: red">
+                    Please fill in all fields
+                  </p>
+                </span>
+                <br><button type="submit" class="contactform-submit-btn-green" 
+                  id="signform-submit-btn-green">Submit</button>
+              </div>
+            </div>
+          </div>    
+          <div class="popup">
+            <h2>Request submitted successfully!</h2>
+            <button id="close-popup" class="signform-submit-btn-green">Ok</button>
+          </div>
+        <div class="containertwo">
+            <div class="info">
+                <h1>LOVE OUR WORK?</h1>
+                <p>JOIN US BY CREATING AN ACCOUNT WITH US</p>
+            </div>
+            <div class="former">
+                <a href="{{ url_for('.Signup', _anchor='exactlocation') }}"><img src="{{ url_for('static', filename='images/User.jpg') }}" style="height: 100%" /></a>
+            </div>
+        </div>
+        <br><br>
+        
+    </div>
+    <footer>
+        <p>&copy; Foodo - Designed in the interest of public 2023</p>
+    </footer>
+</body>
+
+</html>
+
+<script
+  type="text/javascript"
+  src="https://code.jquery.com/jquery-1.7.1.min.js"
+></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    
+    $("#signform-submit-btn-green").click(function () {
+      debugger;
+      var allFilled = true;
+      $("#signform input").each(function () {
+        if ($(this).val() === "") {
+          allFilled = false;
+        }
+      });
+      if (allFilled) {
+        $("#errorMsg").hide();
+
+        // $("#main").animate({ opacity: 0 }, 2000);
+        $(".popup").show();
+
+        // close popup when close button is clicked
+        $("#close-popup").click(function () {
+          $(".popup").hide();
+        });
+      } else {
+        $("#errorMsg").show();
+      }
+    });
+   
+  });
+</script>
